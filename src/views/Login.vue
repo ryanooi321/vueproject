@@ -58,9 +58,6 @@ export default {
       password: "",
     };
   },
-  mounted: function () {
-    if (firebase.auth().currentUser) this.$router.replace("dashboard");
-  },
   methods: {
     login: function () {
       console.log("Email: " + this.email);
