@@ -1,8 +1,12 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo_uow_blue.png" />
+    <img
+      alt="Vue logo"
+      class="img-fluid"
+      src="../assets/logo_uow_blue.png"
+      width="250"
+    />
     <HelloWorld msg="Welcome to Talent Portfolio Digital Management System" />
-    <br />
   </div>
 </template>
 
