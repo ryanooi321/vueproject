@@ -34,7 +34,11 @@
                 <router-link class="nav-link" to="#"></router-link>
               </li>
               <li>
-                <div class="nav-item">{{ user.data.email }}</div>
+                <router-link class="nav-link" to="#"
+                  ><div class="nav-item">
+                    {{ user.data.email }}
+                  </div></router-link
+                >
               </li>
               <li>
                 <router-link class="nav-link" to="#"></router-link>

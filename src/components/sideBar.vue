@@ -1,0 +1,79 @@
+<template>
+  <div
+    class="nav flex-column nav-pills"
+    id="v-pills-tab"
+    role="tablist"
+    aria-orientation="vertical"
+  >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Profile</h3></router-link
+    >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Education</h3></router-link
+    >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Experience</h3></router-link
+    >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Skills</h3></router-link
+    >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Achievements</h3></router-link
+    >
+    <router-link
+      class="nav-link"
+      id="v-pills-home-tab"
+      data-toggle="pill"
+      href="#v-pills-home"
+      role="tab"
+      aria-controls="v-pills-home"
+      aria-selected="true"
+      to="#"
+      ><h3>Generate Resume</h3></router-link
+    >
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
