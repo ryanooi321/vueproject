@@ -7,6 +7,8 @@ import { auth } from '../firebase'
 
 Vue.use(VueRouter)
 
+//import Profile from '../components/Profile.vue'
+
 const routes = [
   {
     path: '/',
