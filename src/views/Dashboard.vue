@@ -1,4 +1,5 @@
 <template>
+
   <div class="row">
     <div class="col-sm-2 border-right">
       <div class="container">
@@ -75,6 +76,7 @@
         </table>-->
     </div>
   </div>
+  <!--<h1>This is the new DashBoard</h1>-->
 </template>
 
 <script>
