@@ -5,9 +5,6 @@ import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import { auth } from '../firebase'
 
-//const loggedOutLinks = document.querySelectorAll('.logged-out');
-//const loggedInLinks = document.querySelectorAll('.logged-in');
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,7 +23,7 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     meta: {
-      requiresAuth: true
+      requiresAuth: true, adminAuth: true, residentAuth: false,
     }
   },
 ]

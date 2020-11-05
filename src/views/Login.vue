@@ -62,6 +62,10 @@ export default {
     login: function () {
       console.log("Email: " + this.email);
       console.log("Password: " + this.password);
+      if (this.email == "admin@gmail.com" && this.password == "password") {
+        console.log("this is admin");
+        this.$router.push("/admin");
+      }
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
