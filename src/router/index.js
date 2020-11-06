@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import { auth } from '../firebase'
+
 import BoardList from '../views/BoardList'
 import ShowBoard from '../views/ShowBoard'
 import AddBoard from '../views/AddBoard'
@@ -11,7 +12,10 @@ import EditBoard from '../views/EditBoard'
 //const loggedOutLinks = document.querySelectorAll('.logged-out');
 //const loggedInLinks = document.querySelectorAll('.logged-in');
 
+
 Vue.use(VueRouter)
+
+//import Profile from '../components/Profile.vue'
 
 const routes = [
   {
@@ -58,7 +62,7 @@ const routes = [
     component: Dashboard,
 
     meta: {
-      requiresAuth: true
+      requiresAuth: true, adminAuth: true, residentAuth: false,
     }
   },
 
