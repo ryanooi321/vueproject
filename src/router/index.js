@@ -4,7 +4,10 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
 import { auth } from '../firebase'
-
+import BoardList from '../views/BoardList'
+import ShowBoard from '../views/ShowBoard'
+import AddBoard from '../views/AddBoard'
+import EditBoard from '../views/EditBoard'
 //const loggedOutLinks = document.querySelectorAll('.logged-out');
 //const loggedInLinks = document.querySelectorAll('.logged-in');
 
@@ -22,13 +25,43 @@ const routes = [
     component: Login
   },
   {
+    path: '/board',
+    name: 'BoardList',
+    component: BoardList,
+
+  },
+  {
+    path: '/show-board/:id',
+    name: 'ShowBoard',
+    component: ShowBoard,
+
+  },
+  {
+    path: '/add-board',
+    name: 'AddBoard',
+    component: AddBoard,
+
+    meta: {
+      requiresAuth: true
+    }
+
+  },
+  {
+    path: '/edit-board/:id',
+    name: 'EditBoard',
+    component: EditBoard,
+
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+
     meta: {
       requiresAuth: true
     }
   },
+
 ]
 
 const router = new VueRouter({

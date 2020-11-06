@@ -1,7 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/firestore'
+import firestore from 'firebase/firestore'
 
+const settings = { timestapmsInSnapShots: true };
 // firebase init - add your own config here
 const firebaseConfig = {
     apiKey: "AIzaSyBx_NnF1guHMpFBzKLpQ_kHoc2qX1TE0K8",
@@ -14,6 +15,8 @@ const firebaseConfig = {
     measurementId: "G-Z17SP53MV7"
 }
 firebase.initializeApp(firebaseConfig)
+
+firebase.firestore().settings(settings);
 
 // utils
 const db = firebase.firestore()
@@ -34,3 +37,5 @@ export {
     commentsCollection,
     likesCollection
 }
+
+export default firebase;
