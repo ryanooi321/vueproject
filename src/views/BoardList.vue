@@ -3,11 +3,11 @@
     <b-col cols="12">
       <h2>
         Board List
-        <b-link href="#/">(Add Board)</b-link>
+        <b-link href="/add-board">(add)</b-link>
       </h2>
       <b-table striped hover :items="boards" :fields="fields">
-        <template slot="actions" scope="row">
-          <b-btn size="sm" @click.stop="details(row.item)">Details</b-btn>
+        <template v-slot:cell(actions)="row">
+          <b-button size="sm" @click.stop="details(row.item)">Details</b-button>
         </template>
       </b-table>
     </b-col>
@@ -25,6 +25,8 @@ export default {
       fields: [
         {
           title: { label: "Title", sortable: true, class: "text-left" },
+        },
+        {
           actions: { label: "Action", class: "text-center" },
         },
       ],

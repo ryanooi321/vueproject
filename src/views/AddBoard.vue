@@ -3,7 +3,7 @@
     <b-col cols="12">
       <h2>
         Add Board
-        <b-link href="#/board">(Board List)</b-link>
+        <b-link href="/board#/board">(Board List)</b-link>
       </h2>
       <b-jumbotron>
         <b-form @submit="onSubmit">
@@ -63,22 +63,21 @@ export default {
       board: [],
     };
   },
+
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
 
       this.ref
-        .add(this.board)
-        .then((docRef) => {
-          this.board.title = "";
-          this.board.description = "";
-          this.board.author = "";
-          router.push({
-            name: "BoardList",
-          });
-        })
+        .doc()
+        .set(Object.assign({}, this.board))
         .catch((error) => {
           alert("Error adding document: ", error);
+        })
+        .then(() => {
+          this.$router.replace({
+            path: "/board",
+          });
         });
     },
   },

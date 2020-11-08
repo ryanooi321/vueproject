@@ -45,9 +45,7 @@ const routes = [
     name: 'AddBoard',
     component: AddBoard,
 
-    meta: {
-      requiresAuth: true
-    }
+
 
   },
   {

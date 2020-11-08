@@ -3,7 +3,7 @@
     <b-col cols="12">
       <h2>
         Edit Board
-        <b-link href="#/board">(Board List)</b-link>
+        <b-link href="/board#/board">(Board List)</b-link>
       </h2>
       <b-jumbotron>
         <template slot="header">
