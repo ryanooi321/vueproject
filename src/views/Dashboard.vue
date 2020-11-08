@@ -1,5 +1,4 @@
 <template>
-
   <div class="row">
     <div class="col-sm-2 border-right">
       <div class="container">
@@ -7,7 +6,7 @@
           <ul class="nav flex-column">
             <li class="nav-item" style="text-align: left">
               <router-link
-                @click="profile"
+                @click="dynamicComponent = 'Profile'"
                 class="nav-link text-secondary"
                 to=""
                 ><h3>Profile</h3></router-link
@@ -50,8 +49,9 @@
       <div class="container">
         <h2>This is dashboard</h2>
         <Profile></Profile>
+        <Project></Project>
         <keep-alive>
-          <component v-bind:is="component"></component>
+          <component :is="dynamicComponent"></component>
         </keep-alive>
       </div>
 
@@ -86,7 +86,6 @@ import Achievements from "../components/Achievements";
 import Certificates from "../components/Certificates";
 import Projects from "../components/Projects";
 export default {
-  name: "Dashboard",
   components: {
     Profile,
     Achievements,
@@ -100,8 +99,8 @@ export default {
   },
   firestore() {
     return {
+      dynamicComponent: "Profile",
       users: db.collection("username"),
-      component: "profile",
     };
   },
   methods: {

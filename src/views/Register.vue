@@ -9,7 +9,7 @@
     /></a>
     <br />
     <br />
-    <h3>Log In</h3>
+    <h3>Add new user</h3>
     <br />
     <div class="row">
       <div class="col-md-3"></div>
@@ -41,7 +41,7 @@
             Password length should be greater than 6
           </div>
         </div>
-        <button @click="login" class="btn btn-primary">Login</button>
+        <button @click="addUser" class="btn btn-primary">Add User</button>
       </div>
       <div class="col-md-3"></div>
     </div>
@@ -49,56 +49,30 @@
 </template>
 
 <script>
-import firebase from "firebase";
+var admin = require("firebase-admin");
 export default {
-  name: "login",
+  name: "addUser",
   data() {
     return {
       email: "",
       password: "",
-      id: "",
     };
   },
   methods: {
-    addProfile: function (id) {
-      firebase
-        .firestore()
-        .collection("profiles")
-        .doc(id)
-        .set({ email: this.email }, { merge: true })
-        .then(function () {
-          console.log("Document successfully written!");
-        })
-        .catch(function (error) {
-          console.error("Error writing document: ", error);
-        });
-    },
-    login: function () {
-      console.log("Email: " + this.email);
-      console.log("Password: " + this.password);
-      if (this.email == "admin@gmail.com" && this.password == "password") {
-        console.log("this is admin");
-        this.$router.push("/admin");
-      }
-
-      firebase
+    addUser: function () {
+      console.log("email" + this.email);
+      admin
         .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          let id = firebase.auth().currentUser.uid;
-          console.log(id);
-          if (this.email != "admin@gmail.com") {
-            this.addProfile(id);
-          }
+        .createUser({
+          email: this.email,
+          password: this.password,
         })
-
+        .then(function (userRecord) {
+          // See the UserRecord reference doc for the contents of userRecord.
+          console.log("Successfully created new user:", userRecord.uid);
+        })
         .catch(function (error) {
-          alert("Unable to login : " + error.message);
-        })
-        .then(() => {
-          this.$router.replace({
-            path: "/dashboard",
-          });
+          console.log("Error creating new user:", error);
         });
     },
   },

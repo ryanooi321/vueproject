@@ -20,7 +20,8 @@
           type="name"
           class="form-control w-50 mx-2"
           id="fname"
-          placeholder="John"
+          v-model="profile.fname"
+          placeholder=""
         />
       </div>
       <div class="form-group row w-50">
@@ -29,7 +30,8 @@
           type="name"
           class="form-control w-50 mx-2"
           id="lname"
-          placeholder="Doe"
+          v-model="profile.lname"
+          placeholder=""
         />
       </div>
       <div class="form-group row">
@@ -38,7 +40,9 @@
           type="email"
           class="form-control w-50 mx-2"
           id="email"
-          placeholder="name@example.com"
+          v-model="profile.email"
+          placeholder=""
+          readonly
         />
       </div>
       <div class="form-group row">
@@ -46,12 +50,19 @@
         <input
           class="form-control w-25 mx-2"
           id="phone"
-          placeholder="0123456789"
+          v-model="profile.phoneNum"
+          placeholder=""
         />
       </div>
       <div class="form-group row">
         <label for="bio">Bio :</label>
-        <textarea class="form-control w-50 mx-2" id="bio" rows="3"></textarea>
+        <textarea
+          class="form-control w-50 mx-2"
+          id="bio"
+          rows="3"
+          v-model="profile.bio"
+          placeholder=""
+        ></textarea>
       </div>
       <div class="form-group row">
         <label for="fname">CV/Resume :</label>
@@ -75,5 +86,45 @@
 </template>
 
 <script>
-export default {};
+import firebase from "../firebase";
+import { db } from "../firebase";
+export default {
+  name: "profile",
+  data() {
+    return {
+      profile: {
+        fname: "",
+        lname: "",
+        bio: "",
+        email: "",
+        phoneNum: "",
+      },
+    };
+  },
+  created() {
+    const ref = firebase
+      .firestore()
+      .collection("profiles")
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.profile.fname = doc.data().fname;
+          this.profile.lname = doc.data().lname;
+          this.profile.bio = doc.data().bio;
+          this.profile.email = doc.data().email;
+          this.profile.phoneNum = doc.data().phoneNum;
+        }
+      });
+    /*ref.get().then((doc) => {
+      if (doc.exists) {
+        this.fname = doc.data().fname;
+        this.lname = doc.data().lname;
+        this.bio = doc.data().bio;
+        this.email = doc.data().email;
+        this.phoneNum = doc.data().phoneNum;
+      }
+    });*/
+  },
+};
 </script>
