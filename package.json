@@ -14,9 +14,15 @@
     "bootstrap-vue": "^2.18.1",
     "core-js": "^3.6.5",
     "firebase": "^8.0.0",
+
     "fs-extra": "^9.0.1",
     "jquery": "^3.5.1",
     "pdfmake": "^0.1.68",
+
+    "firebase-admin": "^9.3.0",
+    "jquery": "^3.5.1",
+    "logrocket": "^1.0.14",
+
     "vue": "^2.6.12",
     "vue-router": "^3.4.8",
     "vuex": "^3.5.1",

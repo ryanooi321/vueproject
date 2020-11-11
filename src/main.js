@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from "./store"
 import firebase from 'firebase/app'
+import * as admin from 'firebase-admin'
 
 
 Vue.config.productionTip = false
