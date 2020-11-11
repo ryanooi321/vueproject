@@ -59,7 +59,7 @@ export default {
   name: "AddBoard",
   data() {
     return {
-      ref: firebase.firestore().collection("boards"),
+      ref: firebase.firestore().collection("profiles"),
       board: [],
     };
   },
@@ -69,8 +69,8 @@ export default {
       evt.preventDefault();
 
       this.ref
-        .doc()
-        .set(Object.assign({}, this.board))
+        .doc(firebase.auth().currentUser.uid)
+        .set(Object.assign({}, this.board), { merge: true })
         .catch((error) => {
           alert("Error adding document: ", error);
         })

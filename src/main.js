@@ -12,6 +12,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from "./store"
 import firebase from 'firebase/app'
 
+
 Vue.config.productionTip = false
 
 firebase.auth().onAuthStateChanged(user => {

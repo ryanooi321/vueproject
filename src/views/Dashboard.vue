@@ -1,5 +1,4 @@
 <template>
-
   <div class="row">
     <div class="col-sm-2 border-right">
       <div class="container">
@@ -50,6 +49,7 @@
       <div class="container">
         <h2>This is dashboard</h2>
         <Profile></Profile>
+        <Achievements></Achievements>
         <keep-alive>
           <component v-bind:is="component"></component>
         </keep-alive>
