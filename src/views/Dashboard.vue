@@ -1,46 +1,33 @@
 <template>
-
   <div class="row">
     <div class="col-sm-2 border-right">
       <div class="container">
         <div class="row">
           <ul class="nav flex-column">
             <li class="nav-item" style="text-align: left">
-              <router-link
-                @click="profile"
-                class="nav-link text-secondary"
-                to=""
-                ><h3>Profile</h3></router-link
-              >
+              <button @click="dashboard" class="btn" to="">
+                <h3>Dashboard</h3>
+              </button>
             </li>
             <li class="nav-item" style="text-align: left">
-              <router-link
-                v-on:click="components = 'achievements'"
-                class="nav-link text-secondary"
-                to="#"
-                ><h3>Achievements</h3></router-link
-              >
+              <button @click="profile" class="btn" to="">
+                <h3>Profile</h3>
+              </button>
             </li>
             <li class="nav-item" style="text-align: left">
-              <router-link
-                @click="certificates()"
-                class="nav-link text-secondary"
-                to="#"
-                ><h3>Certificates</h3></router-link
-              >
+              <button @click="achievements" class="btn" to="">
+                <h3>Achievements</h3>
+              </button>
             </li>
             <li class="nav-item" style="text-align: left">
-              <router-link
-                @click="projects()"
-                class="nav-link text-secondary"
-                to="#"
-                ><h3>Projects</h3></router-link
-              >
+              <button @click="certificates" class="btn" to="">
+                <h3>Certificates</h3>
+              </button>
             </li>
             <li class="nav-item" style="text-align: left">
-              <router-link class="nav-link text-secondary" to="#"
-                ><h3>Generate Report</h3></router-link
-              >
+              <button @click="projects" class="btn" to="">
+                <h3>Projects</h3>
+              </button>
             </li>
           </ul>
         </div>
@@ -48,10 +35,8 @@
     </div>
     <div class="col-sm-10">
       <div class="container">
-        <h2>This is dashboard</h2>
-        <Profile></Profile>
         <keep-alive>
-          <component v-bind:is="component"></component>
+          <component v-bind:is="dynamicComponent"></component>
         </keep-alive>
       </div>
 
@@ -85,39 +70,38 @@ import Profile from "../components/Profile";
 import Achievements from "../components/Achievements";
 import Certificates from "../components/Certificates";
 import Projects from "../components/Projects";
+import Dashboard from "../components/Dashboard";
 export default {
-  name: "Dashboard",
   components: {
     Profile,
     Achievements,
     Certificates,
     Projects,
+    Dashboard,
   },
   data() {
     return {
       users: [],
-    };
-  },
-  firestore() {
-    return {
-      users: db.collection("username"),
-      component: "profile",
+      dynamicComponent: Dashboard,
     };
   },
   methods: {
-    profile() {
-      this.component = Profile;
-      console.log("profile");
+    dashboard: function () {
+      this.dynamicComponent = Dashboard;
     },
-    achievements() {
-      this.component = Achievements;
-      console.log("Achievements");
+    achievements: function () {
+      console.log("achievements clicked");
+      this.dynamicComponent = Achievements;
     },
-    certificates() {
-      this.$$refs.Certificates.show();
+    profile: function () {
+      console.log("profile clicked");
+      this.dynamicComponent = Profile;
     },
-    projects() {
-      this.$refs.Projects.show();
+    certificates: function () {
+      this.dynamicComponent = Certificates;
+    },
+    projects: function () {
+      this.dynamicComponent = Projects;
     },
   },
 };

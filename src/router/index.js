@@ -3,7 +3,12 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Register from '../views/Register.vue'
 import { auth } from '../firebase'
+import Achievements from '../components/Achievements'
+import Profile from '../components/Profile'
+import Certificates from '../components/Certificates'
+import Projects from '../components/Projects'
 
 import BoardList from '../views/BoardList'
 import ShowBoard from '../views/ShowBoard'
@@ -22,6 +27,32 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/dashboard/achievements',
+    name: 'Achievements',
+    component: Achievements,
+    view: Dashboard,
+  },
+  {
+    path: '/',
+    name: 'Certificates',
+    component: Certificates
+  },
+  {
+    path: '/',
+    name: 'Projects',
+    component: Projects
+  },
+  {
+    path: '/',
+    name: 'Profile',
+    component: Profile
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
     path: '/login',
@@ -44,7 +75,6 @@ const routes = [
     path: '/add-board',
     name: 'AddBoard',
     component: AddBoard,
-
     meta: {
       requiresAuth: true
     }
@@ -60,7 +90,6 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-
     meta: {
       requiresAuth: true, adminAuth: true, residentAuth: false,
     }
