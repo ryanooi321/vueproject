@@ -13,7 +13,6 @@ import store from "./store"
 import firebase from 'firebase/app'
 import * as admin from 'firebase-admin'
 
-
 Vue.config.productionTip = false
 
 firebase.auth().onAuthStateChanged(user => {
