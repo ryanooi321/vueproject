@@ -3,17 +3,13 @@
     <b-col cols="12">
       <h2>
         Board List
-
-        <b-link href="/add-board">(add)</b-link>
-
         <router-link class="nav-link" to="/add-board"
           >Add another board</router-link
         >
-
       </h2>
       <b-table striped hover :items="boards" :fields="fields">
-        <template v-slot:cell(actions)="row">
-          <b-button size="sm" @click.stop="details(row.item)">Details</b-button>
+        <template slot="actions" scope="row">
+          <b-btn size="sm" @click.stop="details(row.item)">Details</b-btn>
         </template>
       </b-table>
     </b-col>
@@ -31,14 +27,12 @@ export default {
       fields: [
         {
           title: { label: "Title", sortable: true, class: "text-left" },
-        },
-        {
           actions: { label: "Action", class: "text-center" },
         },
       ],
       boards: [],
       errors: [],
-      ref: firebase.firestore().collection("profiles"),
+      ref: firebase.firestore().collection("boards"),
     };
   },
   created() {
@@ -46,14 +40,9 @@ export default {
       this.boards = [];
       querySnapshot.forEach((doc) => {
         this.boards.push({
-
-          key: doc.id,
-          title: doc.data().fname + " " + doc.data().lname,
-
           title: doc.data().title,
           author: doc.data().author,
           description: doc.data().description,
-
         });
       });
     });

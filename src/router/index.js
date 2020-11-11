@@ -14,8 +14,6 @@ import BoardList from '../views/BoardList'
 import ShowBoard from '../views/ShowBoard'
 import AddBoard from '../views/AddBoard'
 import EditBoard from '../views/EditBoard'
-import Report from '../views/Report'
-
 //const loggedOutLinks = document.querySelectorAll('.logged-out');
 //const loggedInLinks = document.querySelectorAll('.logged-in');
 
@@ -59,10 +57,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    meta: {
-      disallowAuthed: true
-    }
+    component: Login
   },
   {
     path: '/board',
@@ -80,14 +75,9 @@ const routes = [
     path: '/add-board',
     name: 'AddBoard',
     component: AddBoard,
-
-
-
-
     meta: {
       requiresAuth: true
     }
-
 
   },
   {
@@ -96,7 +86,6 @@ const routes = [
     component: EditBoard,
 
   },
-
   {
     path: '/dashboard',
     name: 'Dashboard',
@@ -104,12 +93,6 @@ const routes = [
     meta: {
       requiresAuth: true, adminAuth: true, residentAuth: false,
     }
-  },
-  {
-    path: '/report',
-    name: 'Report',
-    component: Report,
-
   },
 
 ]
@@ -119,11 +102,10 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  const isDisallowAuthed = to.matched.some((route) => route.meta.disallowAuthed)
-  if (requiresAuth && !auth.currentUser && isDisallowAuthed) {
+
+  if (requiresAuth && !auth.currentUser) {
     next('/login')
   } else {
     next()

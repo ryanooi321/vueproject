@@ -35,11 +35,6 @@
     </div>
     <div class="col-sm-10">
       <div class="container">
-
-        <h2>This is dashboard</h2>
-        <Profile></Profile>
-        <Achievements></Achievements>
-
         <keep-alive>
           <component v-bind:is="dynamicComponent"></component>
         </keep-alive>
