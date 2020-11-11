@@ -30,9 +30,7 @@
                   >Dashboard</router-link
                 >
               </li>
-              <li>
-                <router-link class="nav-link" to="/board">Board</router-link>
-              </li>
+
               <li>
                 <router-link class="nav-link" to="#"></router-link>
               </li>
