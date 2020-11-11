@@ -3,11 +3,7 @@
     <b-col cols="12">
       <h2>
         Add Board
-
-        <b-link href="/board#/board">(Board List)</b-link>
-
         <router-link class="nav-link" to="/board">Board list</router-link>
-
       </h2>
       <b-jumbotron>
         <b-form @submit="onSubmit">
@@ -63,25 +59,26 @@ export default {
   name: "AddBoard",
   data() {
     return {
-      ref: firebase.firestore().collection("profiles"),
+      ref: firebase.firestore().collection("boards"),
       board: [],
     };
   },
-
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
 
       this.ref
-        .doc(firebase.auth().currentUser.uid)
-        .set(Object.assign({}, this.board), { merge: true })
+        .add(this.board)
+        .then((docRef) => {
+          this.board.title = "";
+          this.board.description = "";
+          this.board.author = "";
+          router.push({
+            name: "BoardList",
+          });
+        })
         .catch((error) => {
           alert("Error adding document: ", error);
-        })
-        .then(() => {
-          this.$router.replace({
-            path: "/board",
-          });
         });
     },
   },
