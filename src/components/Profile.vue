@@ -97,7 +97,7 @@
 
 <script>
 import firebase from "../firebase";
-import { db } from "../firebase";
+import { auth } from "../../firebase";
 export default {
   name: "profile",
   data() {

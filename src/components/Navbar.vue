@@ -24,26 +24,43 @@
         <template v-if="user.loggedIn">
           <ul class="navbar-nav mr-auto">
             <form class="form-inline my-2 my-lg-0">
-              <li><router-link class="nav-link" to="/">Home</router-link></li>
-              <li>
-                <router-link class="nav-link" to="/dashboard"
-                  >Dashboard</router-link
-                >
-              </li>
+              <template v-if="user.data.email == 'admin@gmail.com'">
+                <li><router-link class="nav-link" to="/">Home</router-link></li>
+                <li>
+                  <router-link class="nav-link" to="/admin">Admin</router-link>
+                </li>
+                <li>
+                  <router-link class="nav-link" to="#"></router-link>
+                </li>
+                <li>
+                  <router-link class="nav-link" to="#"
+                    ><div class="nav-item">
+                      {{ user.data.email }}
+                    </div></router-link
+                  >
+                </li>
+              </template>
+              <template v-else>
+                <li><router-link class="nav-link" to="/">Home</router-link></li>
+                <li>
+                  <router-link class="nav-link" to="/dashboard/dashboard"
+                    >Dashboard</router-link
+                  >
+                </li>
 
-              <li>
-                <router-link class="nav-link" to="#"></router-link>
-              </li>
-              <li>
-                <router-link class="nav-link" to="#"
-                  ><div class="nav-item">
-                    {{ user.data.email }}
-                  </div></router-link
-                >
-              </li>
-              <li>
-                <router-link class="nav-link" to="#"></router-link>
-              </li>
+                <li>
+                  <router-link class="nav-link" to="#"></router-link>
+                </li>
+                <li>
+                  <router-link class="nav-link" to="#"
+                    ><div class="nav-item">
+                      {{ user.data.email }}
+                    </div></router-link
+                  >
+                </li>
+                <li>
+                  <router-link class="nav-link" to="#"></router-link></li
+              ></template>
               <li>
                 <button
                   @click.prevent="signOut"

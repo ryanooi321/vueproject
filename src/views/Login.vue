@@ -91,14 +91,19 @@ export default {
             this.addProfile(id);
           }
         })
-
         .catch(function (error) {
           alert("Unable to login : " + error.message);
         })
         .then(() => {
-          this.$router.replace({
-            path: "/dashboard",
-          });
+          if (this.email != "admin@gmail.com") {
+            this.$router.replace({
+              path: "/dashboard",
+            });
+          } else {
+            this.$router.replace({
+              path: "/admin",
+            });
+          }
         });
     },
   },
