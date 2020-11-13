@@ -21,7 +21,7 @@ export default {
     return {
       fields: [
         {
-          title: { label: "Name", sortable: true, class: "text-left" },
+          title: { label: "Name123", sortable: true, class: "text-left" },
         },
         {
           actions: { label: "Action", class: "text-center" },
