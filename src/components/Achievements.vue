@@ -199,9 +199,10 @@
 
 <script>
 import firebase from "../firebase";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import router from "../router";
 import Vue from "vue";
+
 export default {
   name: "Achievements",
   data() {
@@ -228,7 +229,6 @@ export default {
       },
     };
   },
-
   created() {
     var self = this;
     const ref = firebase
@@ -266,14 +266,14 @@ export default {
         .collection("achievements")
         .doc(id)
         .delete()
-        /*.then(() => {
-          router.push({
-            name: "Achievements",
-          });
-        })*/
+        .then(() => {
+          alert("Successfully Delete");
+          //reload page
+        })
         .catch((error) => {
           alert("Error removing document: ", error);
         });
+      this.myModal = false;
     },
     updateAchievement(id) {
       console.log("update " + id);
@@ -360,12 +360,12 @@ export default {
             achievementFileName: this.forms.achievementFileName,
           },
           { merge: true }
-        );
-      /*.then(() => {
-          router.push({
-            name: "Achievements",
-          });
-        });*/
+        )
+        .then(() => {
+          alert("Successfully Added");
+          Vue.forceUpdate();
+          this.$forceUpdate();
+        });
     },
   },
 };

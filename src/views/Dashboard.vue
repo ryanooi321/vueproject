@@ -5,29 +5,29 @@
         <div class="row">
           <ul class="nav flex-column">
             <li class="nav-item" style="text-align: left">
-              <button @click="dashboard" class="btn" to="">
+              <router-link class="btn" to="/dashboard/dashboard">
                 <h3>Dashboard</h3>
-              </button>
+              </router-link>
             </li>
             <li class="nav-item" style="text-align: left">
-              <button @click="profile" class="btn" to="">
+              <router-link class="btn" to="/dashboard/profile">
                 <h3>Profile</h3>
-              </button>
+              </router-link>
             </li>
             <li class="nav-item" style="text-align: left">
-              <button @click="achievements" class="btn" to="">
+              <router-link class="btn" to="/dashboard/achievements">
                 <h3>Achievements</h3>
-              </button>
+              </router-link>
             </li>
             <li class="nav-item" style="text-align: left">
-              <button @click="certificates" class="btn" to="">
+              <router-link class="btn" to="/dashboard/certificates">
                 <h3>Certificates</h3>
-              </button>
+              </router-link>
             </li>
             <li class="nav-item" style="text-align: left">
-              <button @click="projects" class="btn" to="">
+              <router-link class="btn" to="/dashboard/projects">
                 <h3>Projects</h3>
-              </button>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -35,9 +35,10 @@
     </div>
     <div class="col-sm-10">
       <div class="container">
-        <keep-alive>
-          <component v-bind:is="dynamicComponent"></component>
-        </keep-alive>
+        <router-view>
+          <keep-alive>
+            <component v-bind:is="dynamicComponent"></component> </keep-alive
+        ></router-view>
       </div>
 
       <!--<h1>This is the DashBoard</h1>
@@ -65,12 +66,14 @@
 </template>
 
 <script>
-import { db } from "../firebase";
+import firebase from "../firebase";
+import { auth } from "../../firebase";
 import Profile from "../components/Profile";
 import Achievements from "../components/Achievements";
 import Certificates from "../components/Certificates";
 import Projects from "../components/Projects";
 import Dashboard from "../components/Dashboard";
+import router from "../router/index";
 export default {
   components: {
     Profile,

@@ -12,7 +12,9 @@
             Some Achievements such as awards that have been achieved over the
             years.
           </p>
-          <a href="#" class="btn btn-primary">Add Achievements</a>
+          <router-link class="btn btn-primary" to="/dashboard/achievements">
+            Add Achievements
+          </router-link>
         </div>
       </div>
       <div class="card mx-auto" style="width: 18rem">
@@ -24,7 +26,9 @@
           <p class="card-text">
             Some certificates that have been achieved over the years.
           </p>
-          <a href="#" class="btn btn-primary">Add Certificates</a>
+          <router-link class="btn btn-primary" to="/dashboard/certificates">
+            Add Certificates
+          </router-link>
         </div>
       </div>
       <div class="card" style="width: 18rem">
@@ -36,7 +40,9 @@
           <p class="card-text">
             Some projects that have been done on the side over the years.
           </p>
-          <button class="btn btn-primary">Add Projects</button>
+          <router-link class="btn btn-primary" to="/dashboard/projects">
+            Add Projects
+          </router-link>
         </div>
       </div>
     </div>
@@ -45,7 +51,7 @@
 
 <script>
 import firebase from "../firebase";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 export default {
   name: "Dashboard",
   data() {
@@ -85,8 +91,8 @@ export default {
             //console.log(doc.id, "=>", doc.data());
             self.Csize = querySnapshot.size;
             self.key = doc.id;
-            self.achievements.push(doc.data());
-            console.log(self.achievements);
+            //self.achievements.push(doc.data());
+            //console.log(self.achievements);
           });
         }),
       ref
@@ -97,8 +103,8 @@ export default {
             //console.log(doc.id, "=>", doc.data());
             self.Psize = querySnapshot.size;
             self.key = doc.id;
-            self.achievements.push(doc.data());
-            console.log(self.achievements);
+            //self.achievements.push(doc.data());
+            //console.log(self.achievements);
           });
         });
   },

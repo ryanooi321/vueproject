@@ -189,9 +189,7 @@
 
 <script>
 import firebase from "../firebase";
-import { auth } from "../firebase";
-import router from "../router";
-import Vue from "vue";
+import { auth } from "../../firebase";
 export default {
   name: "Project",
   data() {
