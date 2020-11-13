@@ -3,7 +3,11 @@
     <b-col cols="12">
       <h2>
         Add Board
+
         <b-link href="/board#/board">(Board List)</b-link>
+
+        <router-link class="nav-link" to="/board">Board list</router-link>
+
       </h2>
       <b-jumbotron>
         <b-form @submit="onSubmit">
