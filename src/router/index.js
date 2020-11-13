@@ -78,17 +78,28 @@ const routes = [
 
 ]
 
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
 
+
+
+
+
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const isDisallowAuthed = to.matched.some((route) => route.meta.disallowAuthed)
+
   if (requiresAuth && !auth.currentUser && isDisallowAuthed) {
     next('/login')
+
+
+
+
+
   } else {
     next()
   }
