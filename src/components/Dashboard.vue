@@ -91,8 +91,8 @@ export default {
             //console.log(doc.id, "=>", doc.data());
             self.Csize = querySnapshot.size;
             self.key = doc.id;
-            self.achievements.push(doc.data());
-            console.log(self.achievements);
+            //self.achievements.push(doc.data());
+            //console.log(self.achievements);
           });
         }),
       ref
@@ -103,8 +103,8 @@ export default {
             //console.log(doc.id, "=>", doc.data());
             self.Psize = querySnapshot.size;
             self.key = doc.id;
-            self.achievements.push(doc.data());
-            console.log(self.achievements);
+            //self.achievements.push(doc.data());
+            //console.log(self.achievements);
           });
         });
   },

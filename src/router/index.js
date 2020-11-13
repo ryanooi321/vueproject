@@ -11,6 +11,8 @@ import Certificates from '../components/Certificates'
 import Projects from '../components/Projects'
 import Admin from '../views/Admin'
 import Dash from '../components/Dashboard'
+import adminComponent from '../components/Admin'
+import Report from '../components/Report'
 
 import BoardList from '../views/BoardList'
 import ShowBoard from '../views/ShowBoard'
@@ -31,9 +33,22 @@ const routes = [
     component: Home
   },
   {
-    path: '/admin',
+    path: '/admin/',
     name: 'Admin',
-    component: Admin
+    component: Admin,
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: 'admin',
+        component: adminComponent,
+      },
+      {
+        path: 'report',
+        component: Report,
+      }
+    ]
   },
   {
     path: '/register',
@@ -84,23 +99,28 @@ const routes = [
     children: [
       {
         path: 'profile',
-        component: Profile
+        component: Profile,
+
       },
       {
         path: 'achievements',
-        component: Achievements
+        component: Achievements,
+
       },
       {
         path: 'dashboard',
-        component: Dash
+        component: Dash,
+
       },
       {
         path: 'certificates',
-        component: Certificates
+        component: Certificates,
+
       },
       {
         path: 'projects',
-        component: Projects
+        component: Projects,
+
       },
 
 

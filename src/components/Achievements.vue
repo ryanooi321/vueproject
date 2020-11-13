@@ -273,6 +273,7 @@ export default {
         .catch((error) => {
           alert("Error removing document: ", error);
         });
+      this.myModal = false;
     },
     updateAchievement(id) {
       console.log("update " + id);

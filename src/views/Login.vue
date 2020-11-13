@@ -78,7 +78,7 @@ export default {
       console.log("Password: " + this.password);
       if (this.email == "admin@gmail.com" && this.password == "password") {
         console.log("this is admin");
-        this.$router.push("/admin");
+        this.$router.replace({ path: "/admin/admin" });
       }
 
       firebase
@@ -97,11 +97,11 @@ export default {
         .then(() => {
           if (this.email != "admin@gmail.com") {
             this.$router.replace({
-              path: "/dashboard",
+              path: "/dashboard/dashboard",
             });
           } else {
             this.$router.replace({
-              path: "/admin",
+              path: "/admin/admin",
             });
           }
         });
