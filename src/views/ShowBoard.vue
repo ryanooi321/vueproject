@@ -148,7 +148,7 @@ export default {
 
     createPdf() {
       let PdfPrinter = require("pdfmake");
-
+      var url = this.board.profileUrl;
       var name = this.board.fname + " " + this.board.lname;
       var email = this.board.email;
       var ph = this.board.phoneNum;
@@ -199,6 +199,9 @@ export default {
           {
             text: `${name}`,
             style: "header",
+          },
+          {
+            image: "test",
           },
           {
             text: [`\nEmail: ${email}\t Phone Number: ${ph}`],
@@ -295,6 +298,9 @@ export default {
           tableHeader: {
             fontSize: 13,
             bold: true,
+          },
+          images: {
+            test: "https://picsum.photos/seed/picsum/200/300",
           },
         },
       };
