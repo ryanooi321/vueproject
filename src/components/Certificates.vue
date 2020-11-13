@@ -168,7 +168,7 @@
 
 <script>
 import firebase from "../firebase";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 export default {
   name: "Certificate",
   data() {

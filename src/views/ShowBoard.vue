@@ -1,17 +1,24 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <h2>Profile</h2>
+      <h2>
+        Edit Board
+        <b-link href="#/board">(Board List)</b-link>
+      </h2>
       <b-jumbotron>
         <template slot="header">
-          {{ board.fname + " " + board.lname }}
+          {{ board.title }}
         </template>
         <template slot="lead">
-          Email: {{ board.email }}<br />
-          Talent: {{ board.achievemens }}<br />
+          Title: {{ board.title }}<br />
+          Description: {{ board.description }}<br />
+          Author: {{ board.author }}<br />
         </template>
         <hr class="my-4" />
-        <b-btn @click.stop="createPdf()">Create Report</b-btn>
+        <b-btn class="edit-btn" variant="success" @click.stop="editboard(key)"
+          >Edit</b-btn
+        >
+        <b-btn variant="danger" @click.stop="deleteboard(key)">Delete</b-btn>
       </b-jumbotron>
     </b-col>
   </b-row>
@@ -20,10 +27,12 @@
 <script>
 import firebase from "../firebase";
 import router from "../router";
+
 import { auth } from "../firebase";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 export default {
   name: "ShowBoard",
@@ -52,8 +61,10 @@ export default {
   created() {
     const ref = firebase
       .firestore()
+
       .collection("profiles")
       .doc(this.$route.params.id);
+
 
     ref.get().then((doc) => {
       if (doc.exists) {
@@ -63,6 +74,7 @@ export default {
         alert("No such document!");
       }
     });
+
 
     var self = this;
     const ref1 = firebase
@@ -137,6 +149,7 @@ export default {
           console.log(self.proj);
         });
       });
+
   },
   methods: {
     editboard(id) {
@@ -145,6 +158,7 @@ export default {
         params: { id: id },
       });
     },
+
 
     createPdf() {
       let PdfPrinter = require("pdfmake");
@@ -301,6 +315,7 @@ export default {
       PdfPrinter.createPdf(dd).open();
     },
     /* deleteboard(id) {
+
       firebase
         .firestore()
         .collection("boards")
@@ -314,7 +329,7 @@ export default {
         .catch((error) => {
           alert("Error removing document: ", error);
         });
-    },*/
+    },
   },
 };
 </script>
