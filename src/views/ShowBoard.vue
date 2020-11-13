@@ -1,24 +1,17 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <h2>
-        Edit Board
-        <b-link href="#/board">(Board List)</b-link>
-      </h2>
+      <h2>Profile</h2>
       <b-jumbotron>
         <template slot="header">
-          {{ board.title }}
+          {{ board.fname + " " + board.lname }}
         </template>
         <template slot="lead">
-          Title: {{ board.title }}<br />
-          Description: {{ board.description }}<br />
-          Author: {{ board.author }}<br />
+          Email: {{ board.email }}<br />
+          Talent: {{ board.achievemens }}<br />
         </template>
         <hr class="my-4" />
-        <b-btn class="edit-btn" variant="success" @click.stop="editboard(key)"
-          >Edit</b-btn
-        >
-        <b-btn variant="danger" @click.stop="deleteboard(key)">Delete</b-btn>
+        <b-btn @click.stop="createPdf()">Create Report</b-btn>
       </b-jumbotron>
     </b-col>
   </b-row>
@@ -27,12 +20,10 @@
 <script>
 import firebase from "../firebase";
 import router from "../router";
-
 import { auth } from "../firebase";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 
 export default {
   name: "ShowBoard",
@@ -61,10 +52,8 @@ export default {
   created() {
     const ref = firebase
       .firestore()
-
       .collection("profiles")
       .doc(this.$route.params.id);
-
 
     ref.get().then((doc) => {
       if (doc.exists) {
@@ -75,12 +64,11 @@ export default {
       }
     });
 
-
     var self = this;
     const ref1 = firebase
       .firestore()
       .collection("profiles")
-      .doc(firebase.auth().currentUser.uid)
+      .doc(this.$route.params.id)
       .collection("achievements")
       .get()
       .then(function (querySnapshot) {
@@ -106,7 +94,7 @@ export default {
     const ref2 = firebase
       .firestore()
       .collection("profiles")
-      .doc(firebase.auth().currentUser.uid)
+      .doc(this.$route.params.id)
       .collection("certificates")
       .get()
       .then(function (querySnapshot) {
@@ -128,7 +116,7 @@ export default {
     const ref3 = firebase
       .firestore()
       .collection("profiles")
-      .doc(firebase.auth().currentUser.uid)
+      .doc(this.$route.params.id)
       .collection("projects")
       .get()
       .then(function (querySnapshot) {
@@ -149,7 +137,6 @@ export default {
           console.log(self.proj);
         });
       });
-
   },
   methods: {
     editboard(id) {
@@ -158,7 +145,6 @@ export default {
         params: { id: id },
       });
     },
-
 
     createPdf() {
       let PdfPrinter = require("pdfmake");
@@ -315,7 +301,6 @@ export default {
       PdfPrinter.createPdf(dd).open();
     },
     /* deleteboard(id) {
-
       firebase
         .firestore()
         .collection("boards")
@@ -329,7 +314,7 @@ export default {
         .catch((error) => {
           alert("Error removing document: ", error);
         });
-    },
+    },*/
   },
 };
 </script>
