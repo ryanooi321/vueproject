@@ -93,6 +93,9 @@ export default {
         })
         .catch(function (error) {
           alert("Unable to login : " + error.message);
+          this.$router.replace({
+            path: "/login",
+          });
         })
         .then(() => {
           if (this.email != "admin@gmail.com") {
