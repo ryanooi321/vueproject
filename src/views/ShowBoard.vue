@@ -8,7 +8,7 @@
         </template>
         <template slot="lead">
           Email: {{ board.email }}<br />
-          Talent: {{ board.achievemens }}<br />
+          Phone Number: {{ board.phoneNum }}<br />
         </template>
         <hr class="my-4" />
         <b-btn @click.stop="createPdf()">Create Report</b-btn>
@@ -47,6 +47,8 @@ export default {
       projectDate: "",
       projectType: "",
       counter2: 0,
+      url: "",
+      output: "",
     };
   },
   created() {
@@ -134,11 +136,27 @@ export default {
           });
 
           self.counter2++;
-          console.log(self.proj);
         });
       });
   },
   methods: {
+    convertImgToBase64(url, callback, outputFormat) {
+      var canvas = document.createElement("CANVAS");
+      var ctx = canvas.getContext("2d");
+      var img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.onload = function () {
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL(outputFormat || "image/jpeg");
+        callback.call(this, dataURL);
+        // Clean up
+        canvas = null;
+      };
+      img.src = url;
+    },
+
     editboard(id) {
       router.push({
         name: "EditBoard",
@@ -148,157 +166,360 @@ export default {
 
     createPdf() {
       let PdfPrinter = require("pdfmake");
-
+      var url = this.board.profileUrl;
       var name = this.board.fname + " " + this.board.lname;
       var email = this.board.email;
       var ph = this.board.phoneNum;
       var bio = this.board.bio;
+      var profile = this.board.profileUrl;
+      var resume = this.board.resumeUrl;
+      var imge = "";
       var ach = [];
-      for (var i = 0; i < this.counter; i++) {
-        ach.push([i + 1 + ". " + this.achievements[i].achievementTitle]);
-        var x = [];
-        x = Object.values(ach);
-      }
-      for (i = 0; i < this.counter; i++) {
-        ach.push([this.achievements[i].achievementType]);
-        var xt = [];
-        xt = Object.values(ach);
-      }
-      for (i = 0; i < this.counter; i++) {
-        ach.push([this.achievements[i].achievementDate]);
-        var xd = [];
-        xd = Object.values(ach);
-      }
-      for (i = 0; i < this.counter1; i++) {
-        ach.push([i + 1 + ". " + this.cert[i].certificateTitle]);
-        var ct = [];
-        ct = Object.values(ach);
-      }
-      for (i = 0; i < this.counter1; i++) {
-        ach.push([this.cert[i].certificateDate]);
-        var cy = [];
-        cy = Object.values(ach);
-      }
-      for (i = 0; i < this.counter2; i++) {
-        ach.push([i + 1 + ". " + this.proj[i].projectTitle]);
-        var pt = [];
-        pt = Object.values(ach);
-      }
-      for (i = 0; i < this.counter2; i++) {
-        ach.push([this.proj[i].projectType]);
-        var pty = [];
-        pty = Object.values(ach);
-      }
-      for (i = 0; i < this.counter2; i++) {
-        ach.push([this.proj[i].projectDate]);
-        var pd = [];
-        pd = Object.values(ach);
-      }
-      var dd = {
-        content: [
-          {
-            text: `${name}`,
-            style: "header",
-          },
-          {
-            text: [`\nEmail: ${email}\t Phone Number: ${ph}`],
-            style: "detail",
-          },
-          {
-            text:
-              "____________________________________________________________________________________________________________________________________________________________________________________________",
-            decoration: "underline",
-            decorationColor: "#f2c839",
-            color: "#f2c839",
-            margin: [0, 0, 0, 5],
-            fontSize: 6,
-          },
-          { text: "Bio", style: "title" },
-          {
-            text: ` ${bio}`,
-            style: "para",
-          },
+      console.log("oof");
+      var imageUrl = this.board.profileUrl;
 
-          { text: "Achivements", style: "Achtitle" },
-          {
-            margin: [20, 0],
-            table: {
-              widths: [200, 200, "*"],
-              body: [
-                [
-                  { text: "Title", style: "tableHeader" },
-                  { text: "Type", style: "tableHeader" },
-                  { text: "Year", style: "tableHeader" },
-                ],
-                [[x], [xt], [xd]],
-              ],
+      if (imageUrl != "") {
+        this.convertImgToBase64(imageUrl, function (base64Img) {
+          this.output = base64Img;
+
+          imge = this.output;
+        });
+        event.preventDefault();
+        setTimeout(() => {
+          for (var i = 0; i < this.counter; i++) {
+            ach.push([i + 1 + ". " + this.achievements[i].achievementTitle]);
+            var x = [];
+            x = Object.values(ach);
+          }
+          for (i = 0; i < this.counter; i++) {
+            ach.push([this.achievements[i].achievementType]);
+            var xt = [];
+            xt = Object.values(ach);
+          }
+          for (i = 0; i < this.counter; i++) {
+            ach.push([this.achievements[i].achievementDate]);
+            var xd = [];
+            xd = Object.values(ach);
+          }
+          for (i = 0; i < this.counter1; i++) {
+            ach.push([i + 1 + ". " + this.cert[i].certificateTitle]);
+            var ct = [];
+            ct = Object.values(ach);
+          }
+          for (i = 0; i < this.counter1; i++) {
+            ach.push([this.cert[i].certificateDate]);
+            var cy = [];
+            cy = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([i + 1 + ". " + this.proj[i].projectTitle]);
+            var pt = [];
+            pt = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([this.proj[i].projectType]);
+            var pty = [];
+            pty = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([this.proj[i].projectDate]);
+            var pd = [];
+            pd = Object.values(ach);
+          }
+
+          var dd = {
+            content: [
+              {
+                margin: [20, 0],
+                table: {
+                  widths: ["*", 100],
+                  body: [
+                    [
+                      {
+                        text: `${name}`,
+                        style: "header",
+                        margin: [100, 50, 0, 0],
+                      },
+                      { image: `${imge}`, width: 100, alignment: "right" },
+                    ],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              {
+                text: [`\nEmail: ${email}\t Phone Number: ${ph}`],
+                style: "detail",
+              },
+              {
+                text:
+                  "____________________________________________________________________________________________________________________________________________________________________________________________",
+                decoration: "underline",
+                decorationColor: "#f2c839",
+                color: "#f2c839",
+                margin: [0, 0, 0, 5],
+                fontSize: 6,
+              },
+              { text: "Bio", style: "title" },
+              {
+                text: ` ${bio}`,
+                style: "para",
+              },
+
+              { text: "Achivements", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "Type", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[x], [xt], [xd]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              { text: "Certificates", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[ct], [], [cy]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              { text: "Project", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "Type", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[pt], [pty], [pd]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+
+              { text: `Resume: ${resume}`, link: `${resume}`, style: "resume" },
+            ],
+            styles: {
+              header: {
+                fontSize: 27,
+                bold: true,
+                alignment: "center",
+              },
+              detail: {
+                fontSize: 8,
+                alignment: "center",
+              },
+              title: {
+                fontSize: 18,
+                bold: true,
+                margin: [20, 10],
+              },
+              Achtitle: {
+                fontSize: 18,
+                bold: true,
+                margin: [20, 20],
+              },
+              para: {
+                fontSize: 11,
+                margin: [20, 5],
+              },
+              tableHeader: {
+                fontSize: 13,
+                bold: true,
+              },
+              resume: {
+                margin: [20, 80],
+                bold: true,
+              },
             },
-            layout: "noBorders",
-          },
-          { text: "Certificates", style: "Achtitle" },
-          {
-            margin: [20, 0],
-            table: {
-              widths: [200, 200, "*"],
-              body: [
-                [
-                  { text: "Title", style: "tableHeader" },
-                  { text: "", style: "tableHeader" },
-                  { text: "Year", style: "tableHeader" },
-                ],
-                [[ct], [], [cy]],
-              ],
+          };
+          PdfPrinter.createPdf(dd).open();
+        }, 1200);
+      } else {
+        setTimeout(() => {
+          for (var i = 0; i < this.counter; i++) {
+            ach.push([i + 1 + ". " + this.achievements[i].achievementTitle]);
+            var x = [];
+            x = Object.values(ach);
+          }
+          for (i = 0; i < this.counter; i++) {
+            ach.push([this.achievements[i].achievementType]);
+            var xt = [];
+            xt = Object.values(ach);
+          }
+          for (i = 0; i < this.counter; i++) {
+            ach.push([this.achievements[i].achievementDate]);
+            var xd = [];
+            xd = Object.values(ach);
+          }
+          for (i = 0; i < this.counter1; i++) {
+            ach.push([i + 1 + ". " + this.cert[i].certificateTitle]);
+            var ct = [];
+            ct = Object.values(ach);
+          }
+          for (i = 0; i < this.counter1; i++) {
+            ach.push([this.cert[i].certificateDate]);
+            var cy = [];
+            cy = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([i + 1 + ". " + this.proj[i].projectTitle]);
+            var pt = [];
+            pt = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([this.proj[i].projectType]);
+            var pty = [];
+            pty = Object.values(ach);
+          }
+          for (i = 0; i < this.counter2; i++) {
+            ach.push([this.proj[i].projectDate]);
+            var pd = [];
+            pd = Object.values(ach);
+          }
+
+          var dd = {
+            content: [
+              {
+                margin: [20, 0],
+                table: {
+                  widths: ["*", 100],
+                  body: [
+                    [
+                      {
+                        text: `${name}`,
+                        style: "header",
+                        margin: [100, 50, 0, 0],
+                      },
+                    ],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              {
+                text: [`\nEmail: ${email}\t Phone Number: ${ph}`],
+                style: "detail",
+              },
+              {
+                text:
+                  "____________________________________________________________________________________________________________________________________________________________________________________________",
+                decoration: "underline",
+                decorationColor: "#f2c839",
+                color: "#f2c839",
+                margin: [0, 0, 0, 5],
+                fontSize: 6,
+              },
+              { text: "Bio", style: "title" },
+              {
+                text: ` ${bio}`,
+                style: "para",
+              },
+
+              { text: "Achivements", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "Type", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[x], [xt], [xd]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              { text: "Certificates", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[ct], [], [cy]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+              { text: "Project", style: "Achtitle" },
+              {
+                margin: [20, 0],
+                table: {
+                  widths: [200, 200, "*"],
+                  body: [
+                    [
+                      { text: "Title", style: "tableHeader" },
+                      { text: "Type", style: "tableHeader" },
+                      { text: "Year", style: "tableHeader" },
+                    ],
+                    [[pt], [pty], [pd]],
+                  ],
+                },
+                layout: "noBorders",
+              },
+
+              { text: `Resume: ${resume}`, link: `${resume}`, style: "resume" },
+            ],
+            styles: {
+              header: {
+                fontSize: 27,
+                bold: true,
+                alignment: "center",
+              },
+              detail: {
+                fontSize: 8,
+                alignment: "center",
+              },
+              title: {
+                fontSize: 18,
+                bold: true,
+                margin: [20, 10],
+              },
+              Achtitle: {
+                fontSize: 18,
+                bold: true,
+                margin: [20, 20],
+              },
+              para: {
+                fontSize: 11,
+                margin: [20, 5],
+              },
+              tableHeader: {
+                fontSize: 13,
+                bold: true,
+              },
+              resume: {
+                margin: [20, 80],
+                bold: true,
+              },
             },
-            layout: "noBorders",
-          },
-          { text: "Project", style: "Achtitle" },
-          {
-            margin: [20, 0],
-            table: {
-              widths: [200, 200, "*"],
-              body: [
-                [
-                  { text: "Title", style: "tableHeader" },
-                  { text: "Type", style: "tableHeader" },
-                  { text: "Year", style: "tableHeader" },
-                ],
-                [[pt], [pty], [pd]],
-              ],
-            },
-            layout: "noBorders",
-          },
-        ],
-        styles: {
-          header: {
-            fontSize: 27,
-            bold: true,
-            alignment: "center",
-          },
-          detail: {
-            fontSize: 8,
-            alignment: "center",
-          },
-          title: {
-            fontSize: 18,
-            bold: true,
-            margin: [20, 10],
-          },
-          Achtitle: {
-            fontSize: 18,
-            bold: true,
-            margin: [20, 20],
-          },
-          para: {
-            fontSize: 11,
-            margin: [20, 5],
-          },
-          tableHeader: {
-            fontSize: 13,
-            bold: true,
-          },
-        },
-      };
-      PdfPrinter.createPdf(dd).open();
+          };
+          PdfPrinter.createPdf(dd).open();
+        }, 1200);
+      }
     },
     /* deleteboard(id) {
       firebase
