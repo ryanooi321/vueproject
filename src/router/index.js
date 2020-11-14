@@ -43,6 +43,9 @@ const routes = [
       {
         path: 'admin',
         component: adminComponent,
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: 'report',
@@ -106,7 +109,9 @@ const routes = [
       {
         path: 'dashboard',
         component: Dash,
-
+        meta: {
+          requiresAuth: true, adminAuth: true, residentAuth: false,
+        },
       },
       {
         path: 'certificates',
@@ -153,11 +158,6 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !auth.currentUser && isDisallowAuthed) {
     next('/login')
-
-
-
-
-
   } else {
     next()
   }

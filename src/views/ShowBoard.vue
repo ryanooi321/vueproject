@@ -14,6 +14,9 @@
         <b-btn @click.stop="createPdf()">Create Report</b-btn>
       </b-jumbotron>
     </b-col>
+    <router-link class="btn btn-secondary btn-sm mx-4" to="/admin/report">
+      <h5>Back to Report</h5>
+    </router-link>
   </b-row>
 </template>
 
