@@ -78,7 +78,7 @@ export default {
       console.log("Password: " + this.password);
       if (this.email == "admin@gmail.com" && this.password == "password") {
         console.log("this is admin");
-        this.$router.push("/admin");
+        this.$router.replace({ path: "/admin/admin" });
       }
 
       firebase
@@ -91,14 +91,22 @@ export default {
             this.addProfile(id);
           }
         })
-
         .catch(function (error) {
           alert("Unable to login : " + error.message);
+          this.$router.replace({
+            path: "/login",
+          });
         })
         .then(() => {
-          this.$router.replace({
-            path: "/dashboard",
-          });
+          if (this.email != "admin@gmail.com") {
+            this.$router.replace({
+              path: "/dashboard/dashboard",
+            });
+          } else {
+            this.$router.replace({
+              path: "/admin/admin",
+            });
+          }
         });
     },
   },

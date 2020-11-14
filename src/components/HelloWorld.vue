@@ -3,14 +3,6 @@
     <br />
     <h2>{{ msg }}</h2>
     <br />
-    <br />
-
-    <img
-      src="../assets/dashboard1.png"
-      alt="UOW LOGO"
-      class="img-fluid"
-      width="300"
-    />
   </div>
 </template>
 

@@ -50,10 +50,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.table {
-  width: 96%;
-  margin: 0 auto;
-}
-</style>
